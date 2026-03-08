@@ -9,7 +9,7 @@ export const getUserApi = async (accessToken: string)=> {
         }
     })
     if (!response.ok) {
-        throw new Error(`Error ${response.status}: No se pudo obtener el usuario`)
+        throw new Error(`Error ${response.status}: The user could not be obtained`)
     }
 
     return await response.json();

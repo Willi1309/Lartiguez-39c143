@@ -26,11 +26,11 @@ export const LogInApi = async(user: string, password: string, navigate: ReturnTy
         }else if(response.status === 400){
             Swal.fire({
                 title: "ERROR!",
-                text: "Usuario o contraseña incorrecta",
+                text: "User or password wrong",
             icon: "error"
             })
         }else{
-            console.log('something went wrong')
+            console.log('Something went wrong')
         }  
     }catch(error){
         throw error
@@ -73,12 +73,12 @@ export const SignOutApi = async (refreshToken: string) =>{
             }
         })
         if (!response.ok) {
-            throw new Error("Error al cerrar sesión en el servidor")
+            throw new Error("Error logging out of server")
         }
         if(response.ok){
             Swal.fire({
                 icon: "success",
-                title: "Sesión cerrada exitosamente",
+                title: "Session closed succesfully",
                 showConfirmButton: false,
                 timer: 1500
             })

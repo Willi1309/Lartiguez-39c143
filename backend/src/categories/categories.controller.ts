@@ -15,11 +15,11 @@ export class CategoriesController {
     async createCategory(@Body() createCategoryDto: CreateCategoryDto, @GetUserId() _id_user: number){
         try{
             const { category } = createCategoryDto
-            if(!_id_user) throw new HttpException('Token invalido o usuario no especificado', HttpStatus.UNAUTHORIZED)
+            if(!_id_user) throw new HttpException('Invalid token or unspecified user', HttpStatus.UNAUTHORIZED)
             return await this.categoriesService.create(_id_user, category)
         }catch(error){
             if(error instanceof ConflictException){
-                throw new HttpException('La categoria ya esta registrada', HttpStatus.METHOD_NOT_ALLOWED)
+                throw new HttpException('The category is already registered', HttpStatus.METHOD_NOT_ALLOWED)
             }
         }
         throw Error
@@ -28,7 +28,7 @@ export class CategoriesController {
     @Get()
     @UseGuards(JwtAuthGuard)
     async getCategories(@GetUserId() _id_user: number){
-        if(!_id_user) throw new HttpException('Token invalido o usuario no especificado', HttpStatus.UNAUTHORIZED)
+        if(!_id_user) throw new HttpException('Invalid token or unspecified user', HttpStatus.UNAUTHORIZED)
         return await this.categoriesService.getCategories(_id_user)
     }
 

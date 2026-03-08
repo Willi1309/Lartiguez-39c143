@@ -47,7 +47,7 @@ export default function Main(){
 
     const HandleSignout = () => {
         Swal.fire({
-            title: "Desea cerrar sesión?",
+            title: "Do you want to log out?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
@@ -61,7 +61,7 @@ export default function Main(){
                     try {
                         await SignOutApi(token);
                     } catch (error) {
-                        console.error("La API falló, pero forzaremos el cierre de sesión local", error);
+                        console.error("The API failed, but we'll force a local session closure.", error);
                     } finally {
                         auth.signOut(); 
                         navigate('/');
@@ -77,12 +77,12 @@ export default function Main(){
         ).join('');
 
         const { value: formValues } = await Swal.fire({
-            title: 'Nueva Nota',
+            title: 'New note',
             html: `
-                <input id="swal-title" class="swal2-input" placeholder="Título">
-                <textarea id="swal-body" class="swal2-textarea" placeholder="Cuerpo de la nota"></textarea>
+                <input id="swal-title" class="swal2-input" placeholder="Title">
+                <textarea id="swal-body" class="swal2-textarea" placeholder="Body of the note"></textarea>
                 <select id="swal-category" class="swal2-select" style="display: flex; width: 80%;">
-                    <option value="" disabled selected>Selecciona una categoría</option>
+                    <option value="" disabled selected>Select a category</option>
                     ${optionsHtml}
                 </select>
             `,
@@ -94,7 +94,7 @@ export default function Main(){
                     category: (document.getElementById('swal-category') as HTMLSelectElement).value
                 };
             },
-            confirmButtonText: 'Crear Nota',
+            confirmButtonText: 'Create note',
             confirmButtonColor: '#1bb918'
         })
 
@@ -105,8 +105,8 @@ export default function Main(){
                 // Actualización local: añadimos la nueva nota al array de notas
                 setNotes(prev => [...prev, newNote]);
                 Swal.fire({ 
-                    title: "Exito!", 
-                    text: "Nota creada exitosamente", 
+                    title: "Success!", 
+                    text: "Note created successfully", 
                     icon: "success" 
                 })
             }catch(error){
@@ -118,38 +118,38 @@ export default function Main(){
     const handleDeleteNote = (id_note: number) =>{
         Swal.fire({
             icon: 'question',
-            title: '¿Desea borrar esta nota?',
+            title: '¿Do you want to delete this note?',
             showCancelButton: true,
-            cancelButtonText: "Cancelar",
+            cancelButtonText: "Cancel",
             showConfirmButton: true,
-            confirmButtonText: "Aceptar",
+            confirmButtonText: "Accept",
         }).then(async(result)=>{
             if(result.isConfirmed){
                 await deleteNoteApi(id_note, auth.getAccessToken())
                 setNotes(prev => prev.filter(n => n.id_note !== id_note))           
-                Swal.fire("Exito!", "Nota borrada exitosamente", "success")
+                Swal.fire("Success!", "Note deleted succesfully", "success")
             }
         })
     }
     const handleDeleteCategory = (categoryName: string) =>{
         Swal.fire({
             icon: 'question',
-            title: '¿Desea borrar esta categoria?',
+            title: '¿Do you want to delete this category?',
             showCancelButton: true,
-            cancelButtonText: "Cancelar",
+            cancelButtonText: "Cancel",
             showConfirmButton: true,
-            confirmButtonText: "Aceptar",
+            confirmButtonText: "Accept",
         }).then(async(result)=>{
             if(result.isConfirmed){
                 try{
                     await deleteCategoryApi(auth.getAccessToken(), categoryName)
                     setCategories(prev => prev.filter(c => c.category !== categoryName));
-                    Swal.fire("Exito!", "Categoria borrada exitosamente", "success")
+                    Swal.fire("Success!", "Category deleted succesfully", "success")
                 }catch(error: any){
                     if (error.status === 409) {
-                        Swal.fire("Error", "No puedes borrar una categoría que tiene notas activas.", "error");
+                        Swal.fire("Error", "You cannot delete a category that has active notes..", "error");
                     } else {
-                        Swal.fire("Error", "No se pudo eliminar la categoría.", "error");
+                        Swal.fire("Error", "The category could not be removed.", "error");
                     }
                 }
                 
@@ -159,17 +159,17 @@ export default function Main(){
 
     const handleAddCategory = async () => {
         const { value: categoryName } = await Swal.fire({
-            title: 'Nueva Categoría',
+            title: 'New category',
             input: 'text',
-            inputLabel: 'Nombre de la categoría',
-            inputPlaceholder: 'Ej: Trabajo, Personal...',
+            inputLabel: 'Name of the category',
+            inputPlaceholder: 'Ej: work, personal...',
             showCancelButton: true,
-            confirmButtonText: 'Crear',
+            confirmButtonText: 'Create',
             confirmButtonColor: '#1bb918',
-            cancelButtonText: 'Cancelar',
+            cancelButtonText: 'Cancel',
             cancelButtonColor: '#1e5edd',
             inputValidator: (value) => {
-                if (!value) return '¡Necesitas escribir un nombre!'
+                if (!value) return '¡You need to write a name!'
             }
         })
 
@@ -178,10 +178,10 @@ export default function Main(){
                 
                 await createCategoryApi(auth.getAccessToken(), categoryName)
                 setCategories(prev => [...prev, { category: categoryName }]);
-                Swal.fire("Exito!", "Categoria creada exitosamente", "success")
+                Swal.fire("Exito!", "Category created succesfully", "success")
             } catch (error: any) {
                 if (error.message === "CATEGORY_EXISTS") {
-                    Swal.fire( "ERROR!", "La categoria ya existe", "error" )
+                    Swal.fire( "ERROR!", "Category is already exist", "error" )
                 } else {
                     console.error(error)
                 }
@@ -199,11 +199,11 @@ export default function Main(){
         const { value: formValues } = await Swal.fire({
             title: 'Editar Nota',
             html:
-                `<input id="swal-input1" class="swal2-input" placeholder="Título" value="${note.title}">` +
+                `<input id="swal-input1" class="swal2-input" placeholder="Title" value="${note.title}">` +
                 `<select id="swal-category" class="swal2-select" style="display: flex; width: 80%;">
                     ${optionsHtml}
                 </select>` +
-                `<textarea id="swal-input3" class="swal2-textarea" placeholder="Cuerpo">${note.body}</textarea>`,
+                `<textarea id="swal-input3" class="swal2-textarea" placeholder="Body">${note.body}</textarea>`,
             focusConfirm: false,
             preConfirm: () => {
                 return {
@@ -224,9 +224,9 @@ export default function Main(){
                 setNotes(prevNotes => 
                     prevNotes.map(n => n.id_note === note.id_note ? { ...n, ...formValues } : n)
                 )
-                Swal.fire('Guardado!', 'La nota ha sido actualizada', 'success');
+                Swal.fire('Saved!', 'The note has been updated', 'success');
             } catch (error) {
-                Swal.fire('Error', 'No se pudo actualizar la nota', 'error');
+                Swal.fire('Error', 'The note could not be updated', 'error');
             }
         }
     }
@@ -235,7 +235,7 @@ export default function Main(){
         Swal.fire({
             title: note.title,
             text: note.body,
-            confirmButtonText: 'Cerrar',
+            confirmButtonText: 'Close',
             confirmButtonColor: '#1e5edd',
         })
     }
@@ -254,7 +254,7 @@ export default function Main(){
             await archiveNoteApi(note.id_note, !note.archived, auth.getAccessToken())
             
         } catch (error) {
-            console.error("No se pudo guardar el estado:", error);
+            console.error("The state could not be saved:", error);
             setNotes(previousNotes); 
         }
     }
@@ -269,7 +269,7 @@ export default function Main(){
                 setCategories(categoriesData);
                 setNotes(notesData);
             } catch (error) {
-                console.error("Error al cargar datos iniciales", error);
+                console.error("Error loading initial data", error);
             }
         };
         loadInitialData();
@@ -321,7 +321,7 @@ export default function Main(){
                         </div>
                         <div className="notes">
                             {filtered.length === 0 ? (
-                                <p>No hay notas que coincidan</p>
+                                <p>There are no matching notes</p>
                             ) : (filtered.map((note)=>(
                                 <div className="note" key={note.id_note}>
                                     <div className="note-header">

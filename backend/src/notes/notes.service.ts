@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Note } from './entities/notes.entity';
-import { NoteDto } from './dto/notes.dto';
 
 @Injectable()
 export class NotesService {
@@ -29,10 +28,10 @@ export class NotesService {
     async deleteNote(id_note: number){
         const noteDeleted = await this.notesRepository.delete(id_note)
         if(noteDeleted.affected === 0){
-            throw new NotFoundException(`Nota no encontrada`)
+            throw new NotFoundException(`Note not found`)
         }
         return {
-            message: 'Nota eliminada exitosamente'
+            message: 'Note successfully deleted'
         }
     }
 
@@ -48,8 +47,8 @@ export class NotesService {
         });
 
         if (result.affected === 0) {
-            throw new NotFoundException(`Nota con ID ${id_note} no encontrada`);
+            throw new NotFoundException(`Note with ID ${id_note} not found`);
         }
-        return { message: 'Nota actualizada' };
+        return { message: 'Note updated' };
     }
 }

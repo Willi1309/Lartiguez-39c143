@@ -30,7 +30,7 @@ export class CategoriesService {
         })
 
         if (categoryExists) {
-            throw new ConflictException('La categoria ya esta registrada para este usuario');
+            throw new ConflictException('The category is already registered for this user');
         }
 
         const newCategory = this.categoryRepository.create({
@@ -58,15 +58,15 @@ export class CategoriesService {
         });
 
         if (notesWithCategory > 0) {
-            throw new ConflictException(`No puedes borrar esta categoría porque está siendo usada en ${notesWithCategory} notas.`);
+            throw new ConflictException(`You cannot delete this category because it is being used in ${notesWithCategory} notes.`);
         }
 
         const categoryDeleted = await this.categoryRepository.delete({ category: categoryName });
         
         if (categoryDeleted.affected === 0) {
-            throw new NotFoundException(`Categoría no encontrada`);
+            throw new NotFoundException(`Category not found`);
         }
 
-        return { message: 'Categoría eliminada exitosamente' };
+        return { message: 'Category deleted succesfully' };
     }   
 }

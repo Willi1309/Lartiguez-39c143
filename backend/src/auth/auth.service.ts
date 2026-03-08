@@ -1,9 +1,9 @@
 import { ConflictException, Injectable, UnauthorizedException } from "@nestjs/common"
 import { JwtService } from '@nestjs/jwt'
 import { UsersService } from "src/users/users.service"
-import { InjectRepository } from '@nestjs/typeorm' // Añadir esta importación
-import { Repository } from 'typeorm';                // Añadir esta importación
-import { Token } from './entities/tokens.entities'   // Importar tu entidad Token
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm';
+import { Token } from './entities/tokens.entities'
 import { AuthDto } from "./dto/auth.dto"
 import * as bcrypt from 'bcrypt'
 
@@ -23,7 +23,6 @@ export class AuthService{
         });
     }
 
-    // Este método reemplaza a tu función generateRefreshToken
     generateRefreshToken(user: any) {
         const payload = { id: user.id, user: user.user };
         return this.jwtService.sign(payload, { 
@@ -35,13 +34,13 @@ export class AuthService{
         const user = await this.usersService.findOne(loginDto.user)
 
         if(!user){
-            throw new UnauthorizedException('Usuario o contraseña incorrecta')
+            throw new UnauthorizedException('User or password wrong')
         }
 
         const isPasswordValid = await bcrypt.compare(loginDto.password, user.password)
         
         if (!isPasswordValid) {
-            throw new UnauthorizedException('Usuario o contraseña incorrecta');
+            throw new UnauthorizedException('User or password wrong');
         }
         
         const payload = { sub: user._id_user, username: user.user }
@@ -75,20 +74,20 @@ export class AuthService{
             const result = await this.tokenRepository.delete({ token: refreshToken });
             
             if (result.affected === 0) {
-                console.warn("No se encontró ningún token para borrar en la base de datos")
+                console.warn("No token to delete was found in the database")
             } else {
-                console.log("Token eliminado correctamente de la base de datos")
+                console.log("Token deleted succesfully from the database")
             }
             return result;
         } catch (error) {
-            console.error("Error al borrar el token:", error)
+            console.error("Error deleting token:", error)
             throw error
         }
     }
 
     async signUp(signUpDto: AuthDto){
         const userExists = await this.usersService.findOne(signUpDto.user)
-        if(userExists) throw new ConflictException('El usuario ya esta registrado')
+        if(userExists) throw new ConflictException('User is already registered')
         return await this.usersService.create(signUpDto)
     }
 }

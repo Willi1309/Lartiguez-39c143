@@ -26,7 +26,7 @@ export default function SignUp(){
         if(password !== confirmnPassword){
             Swal.fire({
                 title: "ERROR!",
-                text: "Las contraseñas no coinciden",
+                text: "The passwords do not match",
                 icon: "error"
             })
         }else{
@@ -34,7 +34,7 @@ export default function SignUp(){
                 await SignUpApi(user, password)
                 Swal.fire({ 
                     title: "Exito!", 
-                    text: "Usuario creado exitosamente", 
+                    text: "User created succesfully!", 
                     icon: "success" 
                 })
                 navigate('/');
@@ -42,7 +42,7 @@ export default function SignUp(){
                 if (error.message === "USER_EXISTS") {
                     Swal.fire({ 
                         title: "ERROR!", 
-                        text: "El usuario ya existe", 
+                        text: "User is already exist", 
                         icon: "error" 
                     })
                 } else {
@@ -58,13 +58,13 @@ export default function SignUp(){
     return <>
         <form onSubmit={handleSubmit} className="boxs">
             <div className="title-register">
-                <h1>REGISTRO DE <label className='colorfont'>USUARIO</label></h1>
+                <h1>SIGN<label className='colorfont'>UP</label></h1>
             </div>
             <div className='user-input-box'>
-                <input className='user-inputs' type="text" value={user} onChange={(e) => setUser(e.target.value)} placeholder='Ingrese su nombre de usuario' required/>
+                <input className='user-inputs' type="text" value={user} onChange={(e) => setUser(e.target.value)} placeholder='Enter your username' required/>
             </div>
             <div className='passwords-input-box'>
-                <input className='passwords-inputs' type={showPassword1 ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Ingrese su contraseña' required/>
+                <input className='passwords-inputs' type={showPassword1 ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Enter your password' required/>
                 { showPassword1 ? (
                         <IoMdEyeOff onClick={handleShowPassword1} className='icon-password-eye'/>
                     ) : (
@@ -72,7 +72,7 @@ export default function SignUp(){
                     )   
                 }            </div>
             <div className='passwords-confirmn-input-box'>
-                <input className='passwords-inputs passwords-confirmn-input' type={showPassword2 ? "text" : "password"} value={confirmnPassword} onChange={(e) => setConfirmnPassword(e.target.value)} placeholder='Confirme su contraseña' required/>
+                <input className='passwords-inputs passwords-confirmn-input' type={showPassword2 ? "text" : "password"} value={confirmnPassword} onChange={(e) => setConfirmnPassword(e.target.value)} placeholder='Confirm your password' required/>
                 { showPassword2 ? (
                         <IoMdEyeOff onClick={handleShowPassword2} className='icon-password-eye'/>
                     ) : (
@@ -80,10 +80,10 @@ export default function SignUp(){
                     )   
                 }             </div>
             <div>
-                <button className='signup-button'>Registrar</button>
+                <button className='signup-button'>Register</button>
             </div>
             <div className='more-info-boxs'>
-                <p className='text-paragraphs'>Volver al <Link to='/' className='colorfont label-routers'>inicio de sesión</Link></p>
+                <p className='text-paragraphs'>Return to<Link to='/' className='colorfont label-routers'>login</Link></p>
             </div>
         </form>
     </>

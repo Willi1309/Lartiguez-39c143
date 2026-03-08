@@ -64,7 +64,7 @@ export default function AuthProvider({children}: AuthProviderProps){
                     setIsAuthenticated(true)
                 }
             } catch (e) {
-                console.error("No se pudo renovar la sesión", e)
+                console.error("The session could not be renewed", e)
             }
         }
     }

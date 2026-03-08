@@ -8,7 +8,7 @@ export class RefreshJwtStrategy extends PassportStrategy(Strategy, 'jwt-refresh'
   constructor() {
     const secret = process.env.REFRESH_TOKEN_KEY;
     if (!secret) {
-      throw new Error('La variable de entorno REFRESH_TOKEN_KEY no está definida');
+      throw new Error('The environment variable REFRESH_TOKEN_KEY is not defined');
     }
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

@@ -9,7 +9,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     const secret = process.env.ACCESS_TOKEN_KEY;
     if (!secret) {
-      throw new Error('La variable de entorno ACCESS_TOKEN_KEY no está definida');
+      throw new Error('The ACCESS_TOKEN_KEY environment variable is not defined');
     }
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
