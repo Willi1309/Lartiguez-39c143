@@ -1,4 +1,4 @@
-import {URL} from '../../URL.ts'
+import {URL} from '../URL.ts'
 
 export const getUserApi = async (accessToken: string)=> {
     const response = await fetch(`${URL}/users`, {

@@ -1,4 +1,4 @@
-import {URL} from '../../URL.ts'
+import {URL} from '../URL.ts'
 
 export const postRefreshToken = async (refreshToken: string) => {
     const response = await fetch(`${URL}/auth/refreshToken`, {

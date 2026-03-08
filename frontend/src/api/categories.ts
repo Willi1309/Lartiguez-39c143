@@ -1,4 +1,4 @@
-import { URL } from "../../URL";
+import { URL } from "../URL";
 
 export const getCategoriesApi = async (token: string) =>{
     try{

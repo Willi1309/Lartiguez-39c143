@@ -1,4 +1,4 @@
-import { URL } from "../../URL"
+import { URL } from "../URL"
 import type { Note } from "../../types"
 
 export const getNotesApi = async (token: string) =>{

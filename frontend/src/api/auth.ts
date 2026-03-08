@@ -1,4 +1,4 @@
-import {URL} from '../../URL.ts'
+import {URL} from '../URL.ts'
 import Swal from 'sweetalert2';
 import {useNavigate} from 'react-router-dom'
 import { useAuth } from '../context/authContext.tsx'
@@ -6,6 +6,7 @@ import type { AuthResponse } from '../../types.ts';
 
 export const LogInApi = async(user: string, password: string, navigate: ReturnType<typeof useNavigate>, auth: ReturnType<typeof useAuth>) => {
     try{
+        console.log("URL de API:", import.meta.env.VITE_API_URL);
         const response = await fetch(`${URL}/auth/login`, {
             method: 'POST',
             headers: {

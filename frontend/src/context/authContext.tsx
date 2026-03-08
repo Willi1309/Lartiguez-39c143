@@ -6,7 +6,7 @@ import type {AuthResponse, User, AuthProviderProps} from '../../types.ts'
 const AuthContext = createContext({
     isAuthenticated: false,
     getAccessToken: () => "" as string,
-    saveUser: (userData: AuthResponse) =>{},
+    saveUser: (_userData: AuthResponse) =>{},
     getRefreshToken: () => null as string | null,
     getUser: ()=>({} as User | undefined),
     signOut: ()=>{},
