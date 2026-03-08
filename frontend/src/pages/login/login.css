@@ -1,0 +1,89 @@
+.boxs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50vw;
+    height: 70vh;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 5px;
+    transform: translate(-50%, -50%);
+    -webkit-box-shadow: 0px 0px 74px -31px rgba(0,0,0,0.22);
+    -moz-box-shadow: 0px 0px 74px -31px rgba(0,0,0,0.22);
+    box-shadow: 0px 0px 74px -31px rgba(0,0,0,0.22);
+}
+
+.title-signin, .title-register{
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 2px;
+    font-size: 18px;
+}
+
+.user-inputs, .passwords-inputs{
+    margin: 12px;
+    width: 380px;
+    height: 40px;
+    border: none;
+}
+
+.user-inputs, .passwords-inputs{
+    outline: none;
+    background: none;
+    border-bottom: 2px solid #E4F1FF;
+}
+
+.passwords-input-box, .passwords-confirmn-input-box{
+    height: 64px;
+}
+
+.colorfont{
+    color: #3572EF;
+}
+
+.icon-password-eye{
+    display: flex;
+    font-size: 18px;
+    color: #3572EF;
+    transform: translate(365px, -43px);
+}
+
+.icon-password-eye:hover{
+    cursor: pointer;
+}
+
+.login-button, .signup-button{
+    margin: 12px;
+    width: 380px;
+    height: 40px;
+    border: none;
+    background-color: #3572EF;
+    color: #fff;
+    border-radius: 2px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.signup-button:hover, .login-button:hover{
+    background-color: #1342a0;
+}
+
+.more-info-boxs{
+    text-align: center;
+    margin: 4px;
+}
+
+.text-paragraphs{
+    margin: 6px;
+}
+
+.login-button, .text-paragraphs, p{
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+}
